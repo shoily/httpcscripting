@@ -1,0 +1,122 @@
+%{
+#include "c-bison_tab.h"
+extern float yyfval;
+%}
+
+delim				[ \t\n]
+ws					{delim}+
+nondigit			[a-zA-Z]
+digit				[0-9]
+nonzerodigit	[1-9]
+identifier		(\_|{nondigit})(\_|{nondigit}|{digit})*
+ppnumber			{digit}+(\.{digit}+)?(E[+\-]?{digit}+)?
+headername		(([<]({nondigit}*|{digit}*)*[>])|["]({nondigit}*|{digit}*)*["]))
+simpleescapeseq	[\'\"\?\\\a\b\f\n\r\t\v]
+escapeseq			{simpleescapeseq}
+schar				[^\'\\\n\"]|[\?\a\b\f\r\t\v]
+scharseq			{schar}*
+cchar				[^\"\\\n\']
+ccharseq			{cchar}?
+sign				[+\-]
+digitseq			{digit}+
+fractionalconstant	{digitseq}?\.{digitseq}
+exponentpart	[eE]{sign}?{digitseq}
+decimalconstant	{digit}{digit}*
+stringconstant 	\"{scharseq}\"
+charconstant		\'{ccharseq}\'
+integerconstant	{decimalconstant}
+floatingconstant	{fractionalconstant}{exponentpart}?
+
+%%
+
+"++"							{return PLUSPLUS;}
+"--"							{return MINUSMINUS;}
+">>"							{return SHR;}
+"<<"							{return SHL;}
+"=="							{return EQ;}
+"!="							{return NE;}
+"<="							{return LE;}
+">="							{return GE;}
+"->"							{return STRUCTREF;}
+"&&"							{return LOGICALAND;}
+"||"							{return LOGICALOR;}
+"*="							{return ASSIGNMENT_MUL;}
+"/="							{return ASSIGNMENT_DIV;}
+"%="							{return ASSIGNMENT_PERCENT;}
+"+="							{return ASSIGNMENT_PLUS;}
+"-="							{return ASSIGNMENT_MINUS;}
+"<<="							{return ASSIGNMENT_SHL;}
+">>="							{return ASSIGNMENT_SHR;}
+"&="							{return ASSIGNMENT_AND;}
+"^="							{return ASSIGNMENT_XOR;}
+"|="							{return ASSIGNMENT_OR;}
+
+"~"							{return '~';}
+"`"							{return '`';}
+"!"							{return '!';}
+"@"							{return '@';}
+"#"							{return '#';}
+"$"							{return '$';}
+"%"							{return '%';}
+"^"							{return '^';}
+"&"							{return '&';}
+"*"							{return '*';}
+"("							{return '(';}
+")"							{return ')';}
+"-"							{return '-';}
+"+"							{return '+';}
+"="							{return '=';}
+"{"							{return '{';}
+"}"							{return '}';}
+"["							{return '[';}
+"]"							{return ']';}
+":"							{return ':';}
+";"							{return ';';}
+"\""							{return '\"';}
+"\'"							{return '\'';}
+"<"							{return '<';}
+">"							{return '>';}
+","							{return ',';}
+"."							{return '.';}
+"?"							{return '?';}
+"/"							{return '/';}
+"|"							{return '|';}
+"\\"							{return '\\';}
+
+"break"					{return KW_BREAK;}
+"char"					{return KW_CHAR;}
+"continue"				{return KW_CONTINUE;}
+"do"						{return KW_DO;}
+"double"					{return KW_DOUBLE;}
+"else"					{return KW_ELSE;}
+"enum"					{return KW_ENUM;}
+"float"					{return KW_FLOAT;}
+"for"						{return KW_FOR;}
+"goto"					{return KW_GOTO;}
+"if"						{return KW_IF;}
+"int"						{return KW_INT;}
+"return"					{return KW_RETURN;}
+"sizeof"					{return KW_SIZEOF;}
+"struct"					{return KW_STRUCT;}
+"typedef"				{return KW_TYPEDEF;}
+"void"					{return KW_VOID;}
+"while"					{return KW_WHILE;}
+"Request_QueryString"	{return KW_REQUEST_QUERYSTRING;}
+"Response_Write"			{return KW_RESPONSE_WRITE;}
+{integerconstant}		{yylval = atoi(yytext); return CONSTANT_INTEGER;}
+{floatingconstant}	{sscanf(yytext, "%f", &yyfval); return CONSTANT_FLOATING;}
+{stringconstant}		{return CONSTANT_STRING;}
+{charconstant}			{yylval = *yytext; return CONSTANT_CHAR;}
+{identifier}			{return IDENTIFIER;}
+{ppnumber}			
+{ws}
+
+%%
+
+#ifndef yywrap
+int yywrap ( void )
+{
+	return 1;
+}
+#endif
+

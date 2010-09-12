@@ -1,0 +1,25 @@
+void Add()
+{
+	int c, d, e;
+	c = 1;
+	d = 2;
+	e = c+d;
+}
+
+void main()
+{
+	int x, a, b;
+	a = 2;
+	b = 3;
+	x = a+b;
+	Response_Write(x);
+	return x;
+}
+
+<HTML>
+<BODY>
+My name is Shoily
+<FUNCTIONCALL>main</FUNCTIONCALL>
+Test
+</BODY>
+</HTML>

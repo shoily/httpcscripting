@@ -1,0 +1,54 @@
+#ifndef YYSTYPE
+#define YYSTYPE int
+#endif
+#define	CONSTANT_INTEGER	258
+#define	CONSTANT_FLOATING	259
+#define	CONSTANT_CHAR	260
+#define	CONSTANT_STRING	261
+#define	IDENTIFIER	262
+#define	KW_BREAK	263
+#define	KW_CHAR	264
+#define	KW_CONTINUE	265
+#define	KW_DO	266
+#define	KW_DOUBLE	267
+#define	KW_ELSE	268
+#define	KW_ENUM	269
+#define	KW_FLOAT	270
+#define	KW_FOR	271
+#define	KW_GOTO	272
+#define	KW_IF	273
+#define	KW_INT	274
+#define	KW_LONG	275
+#define	KW_RETURN	276
+#define	KW_SHORT	277
+#define	KW_SIZEOF	278
+#define	KW_STRUCT	279
+#define	KW_TYPEDEF	280
+#define	KW_VOID	281
+#define	KW_WHILE	282
+#define	PLUSPLUS	283
+#define	MINUSMINUS	284
+#define	SHL	285
+#define	SHR	286
+#define	EQ	287
+#define	NE	288
+#define	GE	289
+#define	LE	290
+#define	STRUCTREF	291
+#define	LOGICALAND	292
+#define	LOGICALOR	293
+#define	ASSIGNMENT_MUL	294
+#define	ASSIGNMENT_DIV	295
+#define	ASSIGNMENT_PERCENT	296
+#define	ASSIGNMENT_PLUS	297
+#define	ASSIGNMENT_MINUS	298
+#define	ASSIGNMENT_SHL	299
+#define	ASSIGNMENT_SHR	300
+#define	ASSIGNMENT_AND	301
+#define	ASSIGNMENT_XOR	302
+#define	ASSIGNMENT_OR	303
+#define	KW_REQUEST_QUERYSTRING	304
+#define	KW_RESPONSE_WRITE	305
+
+
+extern YYSTYPE yylval;
